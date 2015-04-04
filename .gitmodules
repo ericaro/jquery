@@ -1,3 +1,3 @@
-[submodule "api.jquery.com"]
+[submodule "ericaro.api.jquery.com"]
 	path = api.jquery.com
-	url = https://github.com/jquery/api.jquery.com.git
+	url = https://github.com/ericaro/api.jquery.com.git

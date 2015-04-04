@@ -1021,9 +1021,10 @@ func (x Deferred) Pipe(i ...interface {
 }
 
 //  Add handlers to be called when the Deferred object generates progress notifications.
-func (x Deferred) Progress(i ...interface {
+func (x Deferred) Progress(progressCallbacks interface {
+}, progressCallbacks interface {
 }) Deferred {
-	return newDeferred(x.Call("progress", i...))
+	return newDeferred(x.Call("progress", progressCallbacks, progressCallbacks))
 }
 
 //  Return a Deferred's Promise object.
