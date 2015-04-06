@@ -6,10 +6,8 @@ import (
 
 type JQuery struct {
 	*js.Object
-	Context  *js.Object `js:"context"`
-	Jquery   string     `js:"jquery"`
-	Length   int        `js:"length"`
-	Selector string     `js:"selector"`
+	Jquery string `js:"jquery"`
+	Length int    `js:"length"`
 }
 
 func newJQuery(j *js.Object) JQuery {
@@ -65,7 +63,7 @@ func (x JQuery) AddBack(i ...interface {
 	return newJQuery(x.Call("addBack", i...))
 }
 
-// Adds the specified class(es) to each of the set of matched elements.
+// Adds the specified class(es) to each element in the set of matched elements.
 func (x JQuery) AddClass(i ...interface {
 }) JQuery {
 	return newJQuery(x.Call("addClass", i...))
@@ -105,11 +103,6 @@ func (x JQuery) AjaxStop(handler *js.Object) JQuery {
 // Attach a function to be executed whenever an Ajax request completes successfully. This is an .
 func (x JQuery) AjaxSuccess(handler *js.Object) JQuery {
 	return newJQuery(x.Call("ajaxSuccess", handler))
-}
-
-// Add the previous set of elements on the stack to the current set.
-func (x JQuery) AndSelf() JQuery {
-	return newJQuery(x.Call("andSelf"))
 }
 
 // Perform a custom animation of a set of CSS properties.
@@ -187,11 +180,9 @@ func (x JQuery) Clone(i ...interface {
 }
 
 // For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-// OR
-// Get an array of all the elements and selectors matched against the current element up through the DOM tree.
 func (x JQuery) Closest(i ...interface {
-}) *js.Object {
-	return x.Call("closest", i...)
+}) JQuery {
+	return newJQuery(x.Call("closest", i...))
 }
 
 // Get the children of each element in the set of matched elements, including text and comment nodes.
@@ -245,12 +236,6 @@ func (x JQuery) Detach(i ...interface {
 	return newJQuery(x.Call("detach", i...))
 }
 
-// Remove event handlers previously attached using  from the elements.
-func (x JQuery) Die(i ...interface {
-}) JQuery {
-	return newJQuery(x.Call("die", i...))
-}
-
 // Iterate over a jQuery object, executing a function for each matched element.
 func (x JQuery) Each(function *js.Object) JQuery {
 	return newJQuery(x.Call("each", function))
@@ -270,12 +255,6 @@ func (x JQuery) End() JQuery {
 func (x JQuery) Eq(i ...interface {
 }) JQuery {
 	return newJQuery(x.Call("eq", i...))
-}
-
-// Bind an event handler to the "error" JavaScript event.
-func (x JQuery) Error(i ...interface {
-}) JQuery {
-	return newJQuery(x.Call("error", i...))
 }
 
 // Display the matched elements by fading them to opaque.
@@ -465,14 +444,6 @@ func (x JQuery) Last() JQuery {
 	return newJQuery(x.Call("last"))
 }
 
-// Attach an event handler for all elements which match the current selector, now and in the future.
-func (x JQuery) Live(i ...interface {
-}) JQuery {
-	return newJQuery(x.Call("live", i...))
-}
-
-// Bind an event handler to the "load" JavaScript event.
-// OR
 // Load data from the server and place the returned HTML into the matched element.
 func (x JQuery) Load(i ...interface {
 }) JQuery {
@@ -779,11 +750,6 @@ func (x JQuery) Siblings(i ...interface {
 	return newJQuery(x.Call("siblings", i...))
 }
 
-// Return the number of elements in the jQuery object.
-func (x JQuery) Size() int {
-	return x.Call("size").Int()
-}
-
 // Reduce the set of matched elements to a subset specified by a range of indices.
 func (x JQuery) Slice(i ...interface {
 }) JQuery {
@@ -833,8 +799,6 @@ func (x JQuery) ToArray() *js.Object {
 	return x.Call("toArray")
 }
 
-// Bind two or more handlers to the matched elements, to be executed on alternate clicks.
-// OR
 // Display or hide the matched elements.
 func (x JQuery) Toggle(i ...interface {
 }) JQuery {
@@ -869,12 +833,6 @@ func (x JQuery) Unbind(i ...interface {
 func (x JQuery) Undelegate(i ...interface {
 }) JQuery {
 	return newJQuery(x.Call("undelegate", i...))
-}
-
-// Bind an event handler to the "unload" JavaScript event.
-func (x JQuery) Unload(i ...interface {
-}) JQuery {
-	return newJQuery(x.Call("unload", i...))
 }
 
 // Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
@@ -993,16 +951,6 @@ func (x Deferred) Fail(i ...interface {
 	return newDeferred(x.Call("fail", i...))
 }
 
-//  Determine whether a Deferred object has been rejected.
-func (x Deferred) IsRejected() bool {
-	return x.Call("isRejected").Bool()
-}
-
-//  Determine whether a Deferred object has been resolved.
-func (x Deferred) IsResolved() bool {
-	return x.Call("isResolved").Bool()
-}
-
 //  Call the progressCallbacks on a Deferred object with the given .
 func (x Deferred) Notify(args *js.Object) Deferred {
 	return newDeferred(x.Call("notify", args))
@@ -1014,17 +962,10 @@ func (x Deferred) NotifyWith(i ...interface {
 	return newDeferred(x.Call("notifyWith", i...))
 }
 
-//  Utility method to filter and/or chain Deferreds.
-func (x Deferred) Pipe(i ...interface {
-}) *js.Object {
-	return x.Call("pipe", i...)
-}
-
 //  Add handlers to be called when the Deferred object generates progress notifications.
-func (x Deferred) Progress(progressCallbacks interface {
-}, progressCallbacks interface {
+func (x Deferred) Progress(i ...interface {
 }) Deferred {
-	return newDeferred(x.Call("progress", progressCallbacks, progressCallbacks))
+	return newDeferred(x.Call("progress", i...))
 }
 
 //  Return a Deferred's Promise object.
@@ -1342,11 +1283,6 @@ func Queue(i ...interface {
 func RemoveData(i ...interface {
 }) JQuery {
 	return newJQuery(JQ.Call("removeData", i...))
-}
-
-// Creates a new copy of jQuery whose properties and methods can be modified without affecting the original jQuery object.
-func Sub() JQuery {
-	return newJQuery(JQ.Call("sub"))
 }
 
 // Remove the whitespace from the beginning and end of a string.
