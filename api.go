@@ -124,11 +124,8 @@ func (x JQuery) AppendTo(target interface {
 }
 
 // Get the value of an attribute for the first element in the set of matched elements.
-// OR
-// Set one or more attributes for the set of matched elements.
-func (x JQuery) Attr(i ...interface {
-}) *js.Object {
-	return x.Call("attr", i...)
+func (x JQuery) Attr(attributeName string) string {
+	return x.Call("attr", attributeName).String()
 }
 
 // Insert content, specified by the parameter, before each element in the set of matched elements.
@@ -191,15 +188,11 @@ func (x JQuery) Contents() JQuery {
 }
 
 // Get the computed style properties for the first element in the set of matched elements.
-// OR
-// Set one or more CSS properties for the set of matched elements.
 func (x JQuery) Css(i ...interface {
-}) *js.Object {
-	return x.Call("css", i...)
+}) string {
+	return x.Call("css", i...).String()
 }
 
-// Store arbitrary data associated with the matched elements.
-// OR
 // Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
 func (x JQuery) Data(i ...interface {
 }) *js.Object {
@@ -342,11 +335,8 @@ func (x JQuery) HasClass(className string) bool {
 }
 
 // Get the current computed height for the first element in the set of matched elements.
-// OR
-// Set the CSS height of every matched element.
-func (x JQuery) Height(i ...interface {
-}) *js.Object {
-	return x.Call("height", i...)
+func (x JQuery) Height() float64 {
+	return x.Call("height").Float()
 }
 
 // Hide the matched elements.
@@ -364,11 +354,8 @@ func (x JQuery) Hover(i ...interface {
 }
 
 // Get the HTML contents of the first element in the set of matched elements.
-// OR
-// Set the HTML contents of each element in the set of matched elements.
-func (x JQuery) Html(i ...interface {
-}) *js.Object {
-	return x.Call("html", i...)
+func (x JQuery) Html() string {
+	return x.Call("html").String()
 }
 
 // Search for a given element from among the matched elements.
@@ -378,19 +365,13 @@ func (x JQuery) Index(i ...interface {
 }
 
 // Get the current computed height for the first element in the set of matched elements, including padding but not border.
-// OR
-// Set the CSS inner height of each element in the set of matched elements.
-func (x JQuery) InnerHeight(i ...interface {
-}) *js.Object {
-	return x.Call("innerHeight", i...)
+func (x JQuery) InnerHeight() float64 {
+	return x.Call("innerHeight").Float()
 }
 
 // Get the current computed inner width for the first element in the set of matched elements, including padding but not border.
-// OR
-// Set the CSS inner width of each element in the set of matched elements.
-func (x JQuery) InnerWidth(i ...interface {
-}) *js.Object {
-	return x.Call("innerWidth", i...)
+func (x JQuery) InnerWidth() int {
+	return x.Call("innerWidth").Int()
 }
 
 // Insert every element in the set of matched elements after the target.
@@ -528,11 +509,8 @@ func (x JQuery) Off(i ...interface {
 }
 
 // Get the current coordinates of the first element in the set of matched elements, relative to the document.
-// OR
-// Set the current coordinates of every element in the set of matched elements, relative to the document.
-func (x JQuery) Offset(i ...interface {
-}) *js.Object {
-	return x.Call("offset", i...)
+func (x JQuery) Offset() *js.Object {
+	return x.Call("offset")
 }
 
 // Get the closest ancestor element that is positioned.
@@ -553,19 +531,15 @@ func (x JQuery) One(i ...interface {
 }
 
 // Get the current computed height for the first element in the set of matched elements, including padding, border, and optionally margin. Returns a number (without "px") representation of the value or null if called on an empty set of elements.
-// OR
-// Set the CSS outer Height of each element in the set of matched elements.
 func (x JQuery) OuterHeight(i ...interface {
-}) *js.Object {
-	return x.Call("outerHeight", i...)
+}) float64 {
+	return x.Call("outerHeight", i...).Float()
 }
 
 // Get the current computed width for the first element in the set of matched elements, including padding and border.
-// OR
-// Set the CSS outer width of each element in the set of matched elements.
 func (x JQuery) OuterWidth(i ...interface {
-}) *js.Object {
-	return x.Call("outerWidth", i...)
+}) float64 {
+	return x.Call("outerWidth", i...).Float()
 }
 
 // Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
@@ -628,11 +602,9 @@ func (x JQuery) Promise(i ...interface {
 }
 
 // Get the value of a property for the first element in the set of matched elements.
-// OR
-// Set one or more properties for the set of matched elements.
-func (x JQuery) Prop(i ...interface {
-}) *js.Object {
-	return x.Call("prop", i...)
+func (x JQuery) Prop(propertyName string) interface {
+} {
+	return x.Call("prop", propertyName).Interface()
 }
 
 // Add a collection of DOM elements onto the jQuery stack.
@@ -642,8 +614,6 @@ func (x JQuery) PushStack(i ...interface {
 }
 
 // Show the queue of functions to be executed on the matched elements.
-// OR
-// Manipulate the queue of functions to be executed, once for each matched element.
 func (x JQuery) Queue(i ...interface {
 }) *js.Object {
 	return x.Call("queue", i...)
@@ -707,19 +677,13 @@ func (x JQuery) Scroll(i ...interface {
 }
 
 // Get the current horizontal position of the scroll bar for the first element in the set of matched elements.
-// OR
-// Set the current horizontal position of the scroll bar for each of the set of matched elements.
-func (x JQuery) ScrollLeft(i ...interface {
-}) *js.Object {
-	return x.Call("scrollLeft", i...)
+func (x JQuery) ScrollLeft() int {
+	return x.Call("scrollLeft").Int()
 }
 
 // Get the current vertical position of the scroll bar for the first element in the set of matched elements or set the vertical position of the scroll bar for every matched element.
-// OR
-// Set the current vertical position of the scroll bar for each of the set of matched elements.
-func (x JQuery) ScrollTop(i ...interface {
-}) *js.Object {
-	return x.Call("scrollTop", i...)
+func (x JQuery) ScrollTop() int {
+	return x.Call("scrollTop").Int()
 }
 
 // Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
@@ -736,6 +700,106 @@ func (x JQuery) Serialize() string {
 // Encode a set of form elements as an array of names and values.
 func (x JQuery) SerializeArray() *js.Object {
 	return x.Call("serializeArray")
+}
+
+// Set one or more attributes for the set of matched elements.
+func (x JQuery) SetAttr(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("attr", i...))
+}
+
+// Set one or more CSS properties for the set of matched elements.
+func (x JQuery) SetCss(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("css", i...))
+}
+
+// Store arbitrary data associated with the matched elements.
+func (x JQuery) SetData(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("data", i...))
+}
+
+// Set the CSS height of every matched element.
+func (x JQuery) SetHeight(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("height", i...))
+}
+
+// Set the HTML contents of each element in the set of matched elements.
+func (x JQuery) SetHtml(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("html", i...))
+}
+
+// Set the CSS inner height of each element in the set of matched elements.
+func (x JQuery) SetInnerHeight(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("innerHeight", i...))
+}
+
+// Set the CSS inner width of each element in the set of matched elements.
+func (x JQuery) SetInnerWidth(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("innerWidth", i...))
+}
+
+// Set the current coordinates of every element in the set of matched elements, relative to the document.
+func (x JQuery) SetOffset(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("offset", i...))
+}
+
+// Set the CSS outer Height of each element in the set of matched elements.
+func (x JQuery) SetOuterHeight(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("outerHeight", i...))
+}
+
+// Set the CSS outer width of each element in the set of matched elements.
+func (x JQuery) SetOuterWidth(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("outerWidth", i...))
+}
+
+// Set one or more properties for the set of matched elements.
+func (x JQuery) SetProp(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("prop", i...))
+}
+
+// Manipulate the queue of functions to be executed, once for each matched element.
+func (x JQuery) SetQueue(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("queue", i...))
+}
+
+// Set the current horizontal position of the scroll bar for each of the set of matched elements.
+func (x JQuery) SetScrollLeft(value float64) JQuery {
+	return newJQuery(x.Call("scrollLeft", value))
+}
+
+// Set the current vertical position of the scroll bar for each of the set of matched elements.
+func (x JQuery) SetScrollTop(value float64) JQuery {
+	return newJQuery(x.Call("scrollTop", value))
+}
+
+// Set the content of each element in the set of matched elements to the specified text.
+func (x JQuery) SetText(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("text", i...))
+}
+
+// Set the value of each element in the set of matched elements.
+func (x JQuery) SetVal(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("val", i...))
+}
+
+// Set the CSS width of each element in the set of matched elements.
+func (x JQuery) SetWidth(i ...interface {
+}) JQuery {
+	return newJQuery(x.Call("width", i...))
 }
 
 // Display the matched elements.
@@ -787,11 +851,8 @@ func (x JQuery) Submit(i ...interface {
 }
 
 // Get the combined text contents of each element in the set of matched elements, including their descendants.
-// OR
-// Set the content of each element in the set of matched elements to the specified text.
-func (x JQuery) Text(i ...interface {
-}) *js.Object {
-	return x.Call("text", i...)
+func (x JQuery) Text() string {
+	return x.Call("text").String()
 }
 
 // Retrieve all the elements contained in the jQuery set, as an array.
@@ -841,19 +902,14 @@ func (x JQuery) Unwrap() JQuery {
 }
 
 // Get the current value of the first element in the set of matched elements.
-// OR
-// Set the value of each element in the set of matched elements.
-func (x JQuery) Val(i ...interface {
-}) *js.Object {
-	return x.Call("val", i...)
+func (x JQuery) Val() interface {
+} {
+	return x.Call("val").Interface()
 }
 
 // Get the current computed width for the first element in the set of matched elements.
-// OR
-// Set the CSS width of each element in the set of matched elements.
-func (x JQuery) Width(i ...interface {
-}) *js.Object {
-	return x.Call("width", i...)
+func (x JQuery) Width() float64 {
+	return x.Call("width").Float()
 }
 
 // Wrap an HTML structure around each element in the set of matched elements.
@@ -1042,11 +1098,6 @@ func (x Event) StopPropagation() interface {
 	return x.Call("stopPropagation").Interface()
 }
 
-// Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
-func FnExtend(object *js.Object) *js.Object {
-	return JQ.Call("FnExtend", object)
-}
-
 // Perform an asynchronous HTTP (Ajax) request.
 func Ajax(i ...interface {
 }) *js.Object {
@@ -1108,6 +1159,11 @@ func Error(message string) interface {
 func Extend(i ...interface {
 }) *js.Object {
 	return JQ.Call("extend", i...)
+}
+
+// Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
+func FnExtend(object *js.Object) *js.Object {
+	return JQ.Call("FnExtend", object)
 }
 
 // Load data from the server using a HTTP GET request.
@@ -1272,8 +1328,6 @@ func Proxy(i ...interface {
 }
 
 // Show the queue of functions to be executed on the matched element.
-// OR
-// Manipulate the queue of functions to be executed on the matched element.
 func Queue(i ...interface {
 }) *js.Object {
 	return JQ.Call("queue", i...)
@@ -1283,6 +1337,12 @@ func Queue(i ...interface {
 func RemoveData(i ...interface {
 }) JQuery {
 	return newJQuery(JQ.Call("removeData", i...))
+}
+
+// Manipulate the queue of functions to be executed on the matched element.
+func SetQueue(i ...interface {
+}) JQuery {
+	return newJQuery(JQ.Call("queue", i...))
 }
 
 // Remove the whitespace from the beginning and end of a string.
